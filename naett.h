@@ -53,7 +53,7 @@ naettOption* naettTimeout(int milliSeconds);
 
 /**
  * @brief Creates a new request to the specified url.
- * Uses an array of options rather that varargs. 
+ * Uses an array of options rather that varargs.
  */
 naettReq* naettRequestWithOptions(const char* url, int numOptions, const naettOption** options);
 
@@ -61,7 +61,7 @@ naettReq* naettRequestWithOptions(const char* url, int numOptions, const naettOp
  * @brief Makes a request and returns a response object.
  * The actual request is processed asynchronously, use `naettComplete`
  * to check if the response is completed.
- * 
+ *
  * A request object can be reused multiple times to make requests, but
  * there can be only one active request using the same request object.
  */
@@ -108,6 +108,13 @@ const void* naettGetBody(naettRes* response, int* outSize);
  * @brief Returns the HTTP header value for the specified header name.
  */
 const char* naettGetHeader(naettRes* response, const char* name);
+
+/**
+ * @brief Returns how many bytes have been read from the response so far,
+ * and the integer pointed to by totalSize gets the Content-Length if available,
+ * or -1 if not (or 0 if headers have not been read yet).
+ */
+int naettGetTotalBytesRead(naettRes* response, int* totalSize);
 
 /**
  * @brief Enumerates all response headers as long as the `lister`

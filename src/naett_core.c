@@ -69,7 +69,7 @@ static int defaultBodyReader(void* dest, int bufferSize, void* userData) {
     if (dest == NULL) {
         return buffer->size;
     }
-    
+
     int bytesToRead = buffer->size - buffer->position;
     if (bytesToRead > bufferSize) {
         bytesToRead = bufferSize;
@@ -249,7 +249,7 @@ naettReq* naettRequest_va(const char* url, int numArgs, ...) {
     if (naettPlatformInitRequest(req)) {
         return (naettReq*)req;
     }
-    
+
     naettFree((naettReq*) req);
     return NULL;
 }
@@ -272,7 +272,7 @@ naettReq* naettRequestWithOptions(const char* url, int numOptions, const naettOp
     if (naettPlatformInitRequest(req)) {
         return (naettReq*)req;
     }
-    
+
     naettFree((naettReq*) req);
     return NULL;
 }
@@ -300,6 +300,15 @@ const void* naettGetBody(naettRes* response, int* size) {
     InternalResponse* res = (InternalResponse*)response;
     *size = res->body.size;
     return res->body.data;
+}
+
+int naettGetTotalBytesRead(naettRes* response, int* totalSize) {
+    assert(response != NULL);
+    assert(totalSize != NULL);
+
+    InternalResponse* res = (InternalResponse*)response;
+    *totalSize = res->contentLength;
+    return res->totalBytesRead;
 }
 
 const char* naettGetHeader(naettRes* response, const char* name) {
