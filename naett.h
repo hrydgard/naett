@@ -44,6 +44,8 @@ naettOption* naettBodyReader(naettReadFunc reader, void* userData);
 naettOption* naettBodyWriter(naettWriteFunc writer, void* userData);
 // Sets connection timeout in milliseconds.
 naettOption* naettTimeout(int milliSeconds);
+// Sets the user agent.
+naettOption* naettUserAgent(const char *userAgent);
 
 /**
  * @brief Creates a new request to the specified url.
@@ -53,7 +55,7 @@ naettOption* naettTimeout(int milliSeconds);
 
 /**
  * @brief Creates a new request to the specified url.
- * Uses an array of options rather that varargs.
+ * Uses an array of options rather than varargs.
  */
 naettReq* naettRequestWithOptions(const char* url, int numOptions, const naettOption** options);
 

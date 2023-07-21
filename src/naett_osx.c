@@ -42,7 +42,7 @@ int naettPlatformInitRequest(InternalRequest* req) {
 
     {
         id name = NSString("User-Agent");
-        id value = NSString(NAETT_UA);
+        id value = NSString(req->options.userAgent ? req->options.userAgent : NAETT_UA);
         objc_msgSend_t(void, id, id)(request, sel("setValue:forHTTPHeaderField:"), value, name);
     }
 
