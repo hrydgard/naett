@@ -267,6 +267,18 @@ naettOption* naettHeader(const char* name, const char* value) {
     return (naettOption*)option;
 }
 
+naettOption* naettUserAgent(const char* method) {
+    naettAlloc(InternalOption, option);
+    option->numParams = 1;
+    InternalParam* param = &option->params[0];
+
+    param->string = method;
+    param->offset = offsetof(RequestOptions, userAgent);
+    param->setter = stringSetter;
+
+    return (naettOption*)option;
+}
+
 naettOption* naettTimeout(int timeoutMS) {
     naettAlloc(InternalOption, option);
     option->numParams = 1;
