@@ -1,7 +1,7 @@
 #ifndef NAETT_INTERNAL_H
 #define NAETT_INTERNAL_H
 
-#ifdef _MSC_VER 
+#ifdef _MSC_VER
     #define strcasecmp _stricmp
     #define min(a,b) (((a)<(b))?(a):(b))
     #define strdup _strdup

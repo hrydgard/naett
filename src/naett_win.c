@@ -65,6 +65,7 @@ static LPCWSTR packHeaders(InternalRequest* req) {
 
 static void unpackHeaders(InternalResponse* res, LPWSTR packed) {
     int len = 0;
+    KVLink* firstHeader = NULL;
     while ((len = wcslen(packed)) != 0) {
         char* header = winToUTF8(packed);
         char* split = strchr(header, ':');
@@ -77,12 +78,13 @@ static void unpackHeaders(InternalResponse* res, LPWSTR packed) {
             naettAlloc(KVLink, node);
             node->key = strdup(header);
             node->value = strdup(split);
-            node->next = res->headers;
-            res->headers = node;
+            node->next = firstHeader;
+            firstHeader = node;
         }
         free(header);
         packed += len + 1;
     }
+    res->headers = firstHeader;
 }
 
 static void callback(HINTERNET request,
