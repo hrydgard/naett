@@ -1446,6 +1446,9 @@ int naettPlatformInitRequest(InternalRequest* req) {
 }
 
 static void* processRequest(void* data) {
+    const int bufSize = 10240;
+    char byteBuffer[bufSize];
+
     InternalResponse* res = (InternalResponse*)data;
     InternalRequest* req = res->request;
 
@@ -1493,9 +1496,7 @@ static void* processRequest(void* data) {
         goto finally;
     }
 
-    const int bufSize = 10240;
     jbyteArray buffer = (*env)->NewByteArray(env, bufSize);
-    char byteBuffer[bufSize];
 
     if (outputStream != NULL) {
         int bytesRead = 0;
